@@ -7,6 +7,8 @@ const http = require('http');
 
 const mongoose = require('mongoose');
 
+const routers = require('./routers');
+
 const PORT = process.env.PORT || 8080;
 const MONGODB_URL = process.env.MONGODB_URL;
 
@@ -29,6 +31,8 @@ mongoose.connection.once('connected', () => {
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use('/', routers());
 
 const server = http.createServer(app);
 
