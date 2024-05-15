@@ -2,6 +2,6 @@
   "env": {
     "node": true
   },
-  "rules": { "no-console": "off" },
+  "rules": { "no-console": "off", "prefer-destructuring": "off" },
   "extends": "airbnb-base"
 }
