@@ -49,6 +49,7 @@ app.use(passport.session());
 initializePassport();
 
 app.use('/', routers());
+app.get('/', (req, res) => res.send('HELLO'));
 
 const server = http.createServer(app);
 

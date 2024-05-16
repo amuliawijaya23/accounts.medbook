@@ -6,26 +6,28 @@ const User = require('../db/models/User');
 
 const initializePassport = () => {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }),
-    async (email, password, done) => {
-      try {
-        if (!email || !password) {
-          return done(null, false);
-        }
-        const user = await User.getUserByEmail(email);
+    new LocalStrategy(
+      { usernameField: 'email' },
+      async (email, password, done) => {
+        try {
+          if (!email || !password) {
+            return done(null, false);
+          }
+          const user = await User.getUserByEmail(email).select('+password');
 
-        if (!user) {
-          return done(null, false);
-        }
+          if (!user) {
+            return done(null, false);
+          }
 
-        if (!(await bcrypt.compare(password, user.password))) {
-          return done(null, false);
+          if (!(await bcrypt.compare(password, user.password))) {
+            return done(null, false);
+          }
+          return done(null, user);
+        } catch (error) {
+          return done(error);
         }
-        return done(null, user);
-      } catch (error) {
-        return done(error);
-      }
-    },
+      },
+    ),
   );
 
   // eslint-disable-next-line no-underscore-dangle
