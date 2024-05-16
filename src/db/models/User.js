@@ -19,6 +19,5 @@ const userSchema = new mongoose.Schema({
 
 exports.User = mongoose.model.User || mongoose.model('User', userSchema);
 exports.getUserByEmail = (email) => this.User.findOne({ email });
-exports.createUser = (values) =>
-  new this.User(values).save().then((user) => user.toObject());
+exports.createUser = (values) => new this.User(values).save().then((user) => user.toObject());
 exports.getUserById = (id) => this.User.findById(id);

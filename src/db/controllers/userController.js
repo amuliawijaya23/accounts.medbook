@@ -45,9 +45,7 @@ exports.getUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
@@ -73,9 +71,7 @@ exports.addUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
@@ -105,9 +101,7 @@ exports.updateUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
