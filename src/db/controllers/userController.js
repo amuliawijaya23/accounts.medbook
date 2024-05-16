@@ -23,8 +23,8 @@ exports.createNewUser = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.createUser({
       ...req.body,
       password: hashedPassword,
