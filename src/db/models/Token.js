@@ -10,3 +10,4 @@ const tokenSchema = new mongoose.Schema({
 
 exports.Token = mongoose.model.Token || mongoose.model('Token', tokenSchema);
 exports.findToken = (token) => this.Token.findOne({ token });
+exports.createToken = (values) => new this.Token(values).save().then((token) => token.toObject());
