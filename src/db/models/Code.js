@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const codeSchema = new mongoose.Schema({
   code: { type: String, required: true },
-  clientId: { type: String, required: true },
-  userId: { type: String, required: true },
+  clientId: { type: String, required: true, ref: 'Client' },
+  userId: { type: String, required: true, ref: 'User' },
   redirectUri: { type: String, required: true },
   scope: { type: String, required: true },
 });

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const tokenSchema = new mongoose.Schema({
   token: { type: String, required: true },
-  clientId: { type: String, required: true },
-  userId: { type: String, required: true },
+  clientId: { type: String, required: true, ref: 'Client' },
+  userId: { type: String, required: true, ref: 'User' },
   scope: { type: String, required: true },
   expiration: { type: Date, required: true },
 });
