@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const tokenSchema = mongoose.Schema({
+const tokenSchema = new mongoose.Schema({
   token: { type: String, required: true },
   clientId: { type: String, required: true },
   userId: { type: String, required: true },
