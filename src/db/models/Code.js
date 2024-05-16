@@ -10,3 +10,4 @@ const codeSchema = new mongoose.Schema({
 
 exports.Code = mongoose.model.authorizationCode || mongoose.model('Code', codeSchema);
 exports.findCode = (code) => this.Code.findOne({ code });
+exports.createCode = (values) => new this.Code(values).save().then((code) => code.toObject());
