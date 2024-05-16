@@ -33,7 +33,7 @@ exports.createNewUser = async (req, res) => {
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -54,7 +54,7 @@ exports.getUserMedication = async (req, res) => {
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -83,7 +83,7 @@ exports.addUserMedication = async (req, res) => {
     return res.status(200).json(userData).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -129,6 +129,6 @@ exports.updateUserMedication = async (req, res) => {
     return res.status(200).json(userData).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
