@@ -5,13 +5,18 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const http = require('http');
+const errorHandler = require('errorhandler');
+const session = require('express-session');
+const passport = require('passport');
 
 const mongoose = require('mongoose');
 
 const routers = require('./routers');
+const initializePassport = require('./auth');
 
 const PORT = process.env.PORT || 8080;
 const MONGODB_URL = process.env.MONGODB_URL;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 const app = express();
 
@@ -33,6 +38,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(errorHandler());
+app.use(
+  session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport config
+initializePassport();
 
 app.use('/', routers());
 
