@@ -8,6 +8,7 @@ const http = require('http');
 const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
+const path = require('path');
 
 const mongoose = require('mongoose');
 
@@ -33,6 +34,9 @@ mongoose.connection.on('error', (error) => {
 mongoose.connection.once('connected', () => {
   console.log('New DB connection established');
 });
+
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'ejs');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
