@@ -1,6 +1,6 @@
 const Client = require('../models/Client');
 
-const uid = require('../../helpers');
+const { uid } = require('../../helpers');
 
 exports.createNewClient = async (req, res) => {
   try {

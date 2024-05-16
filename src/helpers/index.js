@@ -1,3 +1,3 @@
 const crypto = require('crypto');
 
-exports.uid = (len) => crypto.randomBytes(len).toString('base64');
+exports.uid = (len) => crypto.randomBytes(len).toString('hex');
