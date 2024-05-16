@@ -59,7 +59,13 @@ exports.authorization = [
   },
 ];
 
-exports.decision = [login.ensureLoggedIn(), server.decision((req, done) => done(null, { scope: req.body.scope }))];
+exports.decision = [
+  login.ensureLoggedIn(),
+  server.decision((req, done) => {
+    console.log('REQ: ', req);
+    done(null, { scope: req.body.scope });
+  }),
+];
 
 server.grant(
   oauth2orize.grant.code(async (client, redirectUri, user, ares, done) => {
