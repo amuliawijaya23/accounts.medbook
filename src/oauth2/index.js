@@ -33,7 +33,7 @@ server.deserializeClient(async (id, done) => {
 });
 
 exports.authorization = [
-  login.ensureLoggedIn('/login'),
+  login.ensureLoggedIn(),
   server.authorization(async (clientId, redirectURI, scope, state, done) => {
     try {
       const client = await Client.getClientByClientId(clientId);

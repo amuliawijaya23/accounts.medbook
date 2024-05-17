@@ -39,7 +39,7 @@ exports.createNewUser = async (req, res) => {
 
 exports.getUserMedication = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.user._id.toHexString();
 
     if (!id) {
       return res.sendStatus(400);
@@ -60,7 +60,7 @@ exports.getUserMedication = async (req, res) => {
 
 exports.addUserMedication = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.user._id.toHexString();
     const { name, dose, frequency } = req.body;
 
     if (!id) {
@@ -89,11 +89,11 @@ exports.addUserMedication = async (req, res) => {
 
 exports.updateUserMedication = async (req, res) => {
   try {
-    const { id, medicationId } = req.params;
+    const id = req.user._id.toHexString();
 
-    const { dose, frequency } = req.body;
+    const { name, dose, frequency } = req.body;
 
-    if (!id) {
+    if (!id || !name) {
       return res.sendStatus(400);
     }
 
@@ -109,7 +109,7 @@ exports.updateUserMedication = async (req, res) => {
 
     const medication = user.medical_records.medication.find(
       // eslint-disable-next-line no-underscore-dangle
-      (med) => med._id.toString() === medicationId,
+      (med) => med.name === name,
     );
 
     if (!medication) {

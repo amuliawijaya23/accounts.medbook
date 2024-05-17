@@ -1,13 +1,21 @@
 <p>Hi <%= user.email %>!</p>
 <p><b><%= client.name %></b> is requesting access to your account.</p>
 
-<form action="/dialog/authorize/decision" method="post">
+<form action="/api/oauth/authorize/decision" method="post">
   <input name="transaction_id" type="hidden" value="<%= transactionID %>" />
+  <input name="scope" type="hidden" value="<%= scope %>" />
 
-  <div>Scope <input name="scope" type="text" value="<%= scope %>" /></div>
+  <% if (scope === "read:userdata") { %>
+  <p>Do you want to allow <b><%= client.name %></b> to access your account information?</p>
+  <% } %>
+
+  <div></div>
+
+  <% if (scope === "read:medication") { %>
+  <p>Do you want to allow <b><%= client.name %></b> to access your medication??</p>
+  <% } %>
 
   <div>
-    <p>Do you approve?</p>
     <input type="submit" value="Allow" />
   </div>
 </form>

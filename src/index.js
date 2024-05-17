@@ -55,9 +55,6 @@ app.use(passport.session());
 initializePassport();
 
 app.use('/', routers());
-app.get('/', (req, res) => {
-  res.render('index');
-});
 
 const server = http.createServer(app);
 
