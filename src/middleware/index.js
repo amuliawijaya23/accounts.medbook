@@ -1,16 +1,7 @@
-exports.isAuthenticated = (req, res, next) => {
-  const auth = req.isAuthenticated();
-
-  if (!auth) {
-    return res.sendStatus(401);
+exports.captureOauthParams = (req, res, next) => {
+  if (!req.session.returnTo) {
+    return next();
   }
-  return next();
-};
-
-exports.isNotAuthenticated = (req, res, next) => {
-  const auth = req.isAuthenticated();
-  if (auth) {
-    return res.sendStatus(403);
-  }
+  res.cookie('returnURL', req.session.returnTo);
   return next();
 };

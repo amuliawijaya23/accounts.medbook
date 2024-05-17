@@ -33,7 +33,7 @@ exports.createNewUser = async (req, res) => {
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -45,9 +45,7 @@ exports.getUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
@@ -56,7 +54,7 @@ exports.getUserMedication = async (req, res) => {
     return res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -73,9 +71,7 @@ exports.addUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
@@ -87,7 +83,7 @@ exports.addUserMedication = async (req, res) => {
     return res.status(200).json(userData).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };
 
@@ -105,9 +101,7 @@ exports.updateUserMedication = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await User.getUserById(id).select(
-      '+medical_records.medication',
-    );
+    const user = await User.getUserById(id).select('+medical_records.medication');
 
     if (!user) {
       return res.sendStatus(400);
@@ -135,6 +129,6 @@ exports.updateUserMedication = async (req, res) => {
     return res.status(200).json(userData).end();
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.sendStatus(500);
   }
 };

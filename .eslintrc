@@ -6,7 +6,8 @@
     "no-console": "off",
     "prefer-destructuring": "off",
     "camelcase": "off",
-    "no-restricted-syntax": ["off", "ForOfStatement"]
+    "no-restricted-syntax": ["off", "ForOfStatement"],
+    "max-len": "off"
   },
   "extends": "airbnb-base"
 }
