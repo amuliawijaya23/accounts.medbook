@@ -21,7 +21,13 @@ exports.userData = [
 
 exports.userMedication = [passport.authenticate('bearer', { session: false }), ensureValidToken('read:medication'), getUserMedication];
 
-exports.updateMedication = [passport.authenticate('bearer', { session: false }), ensureValidToken('write:medication'), updateUserMedication];
+const getParamsAndValidateToken = (req, res, next) => {
+  const { name, dose, frequency } = req.body;
+  console.log('Name is: ', name);
+  ensureValidToken(`write:${name}`)(req, res, next);
+};
+
+exports.updateMedication = [passport.authenticate('bearer', { session: false }), getParamsAndValidateToken, updateUserMedication];
 
 exports.login = passport.authenticate('local', { failureRedirect: '/login' });
 
