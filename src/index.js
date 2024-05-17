@@ -12,30 +12,18 @@ const session = require('express-session');
 const passport = require('passport');
 const path = require('path');
 
-const mongoose = require('mongoose');
+const dbConnect = require('./db');
 
 const routers = require('./routers');
 const initializePassport = require('./auth');
 
 const PORT = process.env.PORT || 8080;
-const MONGODB_URL = process.env.MONGODB_URL;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
 const app = express();
 
-if (!MONGODB_URL || MONGODB_URL.length === 0) {
-  throw new Error('Please add your MongoDB URL');
-}
-
-mongoose.Promise = global.Promise;
-
-mongoose.connect(MONGODB_URL);
-mongoose.connection.on('error', (error) => {
-  throw new Error(error);
-});
-mongoose.connection.once('connected', () => {
-  console.log('New DB connection established');
-});
+// connect to MongoDB
+dbConnect();
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
