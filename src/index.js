@@ -2,9 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const http = require('http');
+const partials = require('express-partials');
 const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
@@ -37,13 +39,15 @@ mongoose.connection.once('connected', () => {
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+app.use(partials());
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(errorHandler());
-app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(errorHandler({ dumpExceptions: true, showStack: true }));
+app.use(cookieParser());
+app.use(session({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -51,7 +55,9 @@ app.use(passport.session());
 initializePassport();
 
 app.use('/', routers());
-app.get('/', (req, res) => res.send('HELLO'));
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 const server = http.createServer(app);
 

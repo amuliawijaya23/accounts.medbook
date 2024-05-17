@@ -33,23 +33,21 @@ server.deserializeClient(async (id, done) => {
 });
 
 exports.authorization = [
-  login.ensureLoggedIn(),
-  server.authorization(async (clientId, redirectUri, scope, state, done) => {
+  login.ensureLoggedIn('/login'),
+  server.authorization(async (clientId, redirectURI, scope, state, done) => {
     try {
-      console.log(`clientId: ${clientId}, redirectUri: ${redirectUri}, scope: ${scope}, state: ${state}`);
-
       const client = await Client.getClientByClientId(clientId);
 
       if (!client) {
         return done(null, false);
       }
 
-      return done(null, client, redirectUri);
+      return done(null, client, redirectURI);
     } catch (error) {
       return done(error);
     }
   }),
-  function (req, res) {
+  (req, res) => {
     res.render('dialog', {
       transactionID: req.oauth2.transactionID,
       user: req.user,
@@ -62,7 +60,6 @@ exports.authorization = [
 exports.decision = [
   login.ensureLoggedIn(),
   server.decision((req, done) => {
-    console.log('REQ: ', req);
     done(null, { scope: req.body.scope });
   }),
 ];
@@ -154,7 +151,7 @@ server.exchange(
 
       await accessToken.save();
 
-      await refreshAccessToken.delete();
+      await refreshAccessToken.deleteOne();
 
       await RefreshToken.createRefreshToken({ token: newRefreshToken });
 

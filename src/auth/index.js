@@ -35,7 +35,7 @@ const initializePassport = () => {
   );
 
   // eslint-disable-next-line no-underscore-dangle
-  passport.serializeUser((user, done) => done(null, user._id));
+  passport.serializeUser((user, done) => done(null, user._id.toString()));
 
   passport.deserializeUser(async (id, done) => {
     try {
