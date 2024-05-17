@@ -7,12 +7,10 @@
 
   <% if (scope === "read:userdata") { %>
   <p>Do you want to allow <b><%= client.name %></b> to access your account information?</p>
-  <% } %>
-
-  <div></div>
-
-  <% if (scope === "read:medication") { %>
-  <p>Do you want to allow <b><%= client.name %></b> to access your medication??</p>
+  <% } %> <% if (scope === "read:medication") { %>
+  <p>Do you want to allow <b><%= client.name %></b> to access your medication?</p>
+  <% } %> <% if (scope.split(':')[0] === "write") { %>
+  <p>Do you want to allow <b><%= client.name %></b> to make changes to your data?</p>
   <% } %>
 
   <div>
