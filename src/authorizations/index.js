@@ -9,9 +9,6 @@ exports.info = [
 ];
 
 const ensureValidToken = (scope) => (req, res, next) => {
-  console.log(`ensureScope ${scope} is equal to ${req.authInfo}`);
-  console.log('Req User: ', req.user);
-
   const expirationTimestamp = new Date(req.authInfo.expiration).getTime();
 
   if (expirationTimestamp < new Date().getTime()) {

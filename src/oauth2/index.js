@@ -69,8 +69,6 @@ server.grant(
     try {
       const code = uid(16);
 
-      console.log(`Grants code: ${code}, client: ${client}, ares: ${ares}, user: ${user}`);
-
       await Code.createCode({
         code,
         clientId: client.clientId,
