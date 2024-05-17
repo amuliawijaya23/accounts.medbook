@@ -2,26 +2,14 @@ const passport = require('passport');
 const login = require('connect-ensure-login');
 const { getUserMedication, updateUserMedication } = require('../db/controllers/userController');
 
+const { ensureValidToken } = require('../middleware');
+
 exports.info = [
   passport.authenticate('bearer', { session: false }),
   function (req, res) {
     return res.status(200).json({ user_id: req.user._id, email: req.user.email, scope: req.authInfo.scope }).end();
   },
 ];
-
-const ensureValidToken = (scope) => (req, res, next) => {
-  const expirationTimestamp = new Date(req.authInfo.expiration).getTime();
-
-  if (expirationTimestamp < new Date().getTime()) {
-    return res.sendStatus(401);
-  }
-
-  if (!req.authInfo || !req.authInfo.scope || req.authInfo.scope.indexOf(scope) === -1) {
-    return res.sendStatus(403);
-  }
-
-  return next();
-};
 
 exports.userData = [
   passport.authenticate('bearer', { session: false }),
